@@ -1,4 +1,4 @@
-# Flask Homework
+# Instaflask
 ## Social Media Timeline
 
 A lightweight, responsive social media timeline web application built with Python, Flask, and SQLite. Users can log in, view a global explore feed, add new posts with image URLs, edit or delete their own posts in-place, and view a personalized profile dashboard featuring an Instagram-style grid layout.
