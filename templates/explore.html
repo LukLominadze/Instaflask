@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% from 'cards.html' import render_post_card %}
+
+{% block head %}
+<title>Instaflask | მთავარი</title>
+{% endblock %}
+
+{% block body %}
+
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5 position-relative" style="padding-bottom: 80px;">
+        
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="fw-bold m-0">Explore</h3>
+            <button id="showFormBtn" class="btn btn-primary rounded-pill px-4">
+                ➕ Add Post
+            </button>
+        </div>
+
+        <div id="addPostFormContainer" class="card shadow-sm mb-4 d-none">
+            <div class="card-body">
+                <h5 class="card-title fw-bold mb-3">Create New Post</h5>
+                
+                <form action="{{ url_for('explore') }}" method="POST">
+                    <div class="mb-3">
+                        <input type="hidden" name="logged_user_id" value="{{ logged_user_id }}">
+                        <label for="title" class="form-label small fw-semibold text-muted">Title</label>
+                        <input type="text" class="form-control" id="title" name="title" required placeholder="Give your post a catchy title">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="image_url" class="form-label small fw-semibold text-muted">Image URL</label>
+                        <input type="url" class="form-control" id="image_url" name="image_url" required placeholder="https://example.com/image.jpg">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="description" class="form-label small fw-semibold text-muted">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" required placeholder="Write a caption..."></textarea>
+                    </div>
+                    
+                    <div class="d-flex gap-2 justify-content-end">
+                        <button type="button" id="discardFormBtn" class="btn btn-light border">Discard</button>
+                        <button type="submit" class="btn btn-success px-4">Publish</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <hr class="text-muted my-3">
+
+        <div id="postsContainer" class="overflow-auto" style="max-height: 75vh; scrollbar-width: none;">
+            {% if posts %}
+                {% for post in posts %}
+                    {{ render_post_card(post, logged_user_id) }}
+                {% endfor %}
+            {% else %}
+                <div class="text-center text-muted py-5 bg-white rounded-3 border">
+                    <p class="m-0 p-3">No posts yet. Be the first to share something!</p>
+                </div>
+            {% endif %}
+        </div>
+
+        {% include 'bottom_nav.html' %}
+
+    </div>
+</div>
+
+<script>
+    const showFormBtn = document.getElementById('showFormBtn');
+    const discardFormBtn = document.getElementById('discardFormBtn');
+    const formContainer = document.getElementById('addPostFormContainer');
+
+    // Show form, hide the initial "Add Post" trigger button
+    showFormBtn.addEventListener('click', () => {
+        formContainer.classList.remove('d-none');
+        showFormBtn.classList.add('d-none');
+    });
+
+    // Hide form, bring back the "Add Post" trigger button
+    discardFormBtn.addEventListener('click', () => {
+        formContainer.classList.add('d-none');
+        showFormBtn.classList.remove('d-none');
+    });
+
+    function toggleEditMode(postId, showEdit) {
+        const viewContainer = document.getElementById(`view-mode-${postId}`);
+        const editContainer = document.getElementById(`edit-mode-${postId}`);
+        
+        if (showEdit) {
+            viewContainer.classList.add('d-none');
+            editContainer.classList.remove('d-none');
+        } else {
+            viewContainer.classList.remove('d-none');
+            editContainer.classList.add('d-none');
+        }
+    }
+</script>
+
+{% endblock %}

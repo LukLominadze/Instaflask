@@ -1,0 +1,17 @@
+<div class="fixed-bottom bg-white border-top shadow-sm py-2">
+    <div class="container d-flex justify-content-around" style="max-width: 500px;">
+        
+        <a href="{{ url_for('explore', logged_user_id=logged_user_id) }}" 
+           class="text-center text-decoration-none {% if request.endpoint == 'explore' %}text-primary fw-bold{% else %}text-muted opacity-75{% endif %}">
+            <div class="fs-4">🧭</div>
+            <span style="font-size: 12px;">Explore</span>
+        </a>
+        
+        <a href="{{ url_for('profile', logged_user_id=logged_user_id) }}" 
+           class="text-center text-decoration-none {% if request.endpoint == 'profile' %}text-primary fw-bold{% else %}text-muted opacity-75{% endif %}">
+            <div class="fs-4">👤</div>
+            <span style="font-size: 12px;">Profile</span>
+        </a>
+        
+    </div>
+</div>

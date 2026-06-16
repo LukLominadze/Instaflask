@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% from 'flash_messages.html' import flash_messages %}
+
+{% block head %}
+<title>Instaflask | რეგისტრაცია</title>
+{% endblock %}
+
+{% block body %}
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="row w-100 justify-content-center">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+            
+            <div class="card shadow-sm border-0 p-4">
+                <div class="card-body">
+                    <h2 class="text-center mb-4 fw-bold text-dark">Instaflask</h2>
+                    <p class="text-center text-muted small mb-4">შექმენი ანგარიში მეგობრების ფოტოების სანახავად</p>
+                    
+                    <form action="{{ url_for('register') }}" method="POST">
+                        
+                        <div class="form-floating mb-3">
+                            <input type="text" name="username" class="form-control" id="floatingUsername" placeholder="სახელი" required>
+                            <label for="floatingUsername">სახელი</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="email" name="email" class="form-control" id="floatingEmail" placeholder="name@example.com" required>
+                            <label for="floatingEmail">ელ. ფოსტა</label>
+                        </div>
+                        
+                        <div class="form-floating mb-3">
+                            <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="პაროლი" required>
+                            <label for="floatingPassword">პაროლი</label>
+                        </div>
+                        
+                        <div class="form-floating mb-4">
+                            <input type="password" name="confirm_password" class="form-control" id="floatingConfirmPassword" placeholder="გაიმეორე პაროლი" required>
+                            <label for="floatingConfirmPassword">გაიმეორე პაროლი</label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100 mb-3 fw-semibold">
+                            რეგისტრაცია
+                        </button>
+                    </form>
+                    
+                    <hr class="text-muted my-3">
+                    
+                    <div class="text-center">
+                        <p class="small text-muted mb-2">უკვე გაქვს ანგარიში?</p>
+                        <a href="{{ url_for('login') }}" class="btn btn-outline-secondary btn-sm w-100 fw-semibold">
+                            შესვლა
+                        </a>
+                    </div>
+
+                    {{ flash_messages() }}
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}
